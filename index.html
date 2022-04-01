@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Dancing Men</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <style>
+        @font-face {
+            font-family: "Dancing Men";
+            src: url(Dance.ttf);
+        }
+        body{
+            font-family: serif;
+            padding: 0px;
+            color: white;
+            background-color: #111827;
+        }
+        .code{
+            font-family: "Dancing Men";
+            font-size: xx-large;
+        }
+        .center{
+            display: block;
+            margin: auto;
+            text-align: center;
+            margin-top: 10px;
+        }
+        #cipher{
+            font-family: "Dancing Men";
+            font-size: 3em;
+            background-color: white;
+            color: black;
+            width: fit-content;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <h2 style="margin-left: 10px; color: white;"><b><u>The Dancing Men</u></b></h2>
+        <div style="display: inline-block;">Uppercase E for <div class="code">E</div></div><br/>
+        <div style="display: inline-block;">Lowercase E for <div class="code">e</div></div><br/>
+        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="Enter the text without any spaces,numbers or special characters">
+        <input type="text" id="text" placeholder="Enter the text without any spaces,numbers or special characters"/></span><br/><br/>
+        <button class="btn btn-primary" onclick="setText()">Get Image</button> <button class="btn btn-success" onclick="Download()">Download Image</button><br/><br/>
+        <div id="cipher"></div>
+        <details><summary><h4><b>Watch the Entire story here</b></h4></summary>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/NzyFhSDrrrM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></details>
+    </div>
+    <script>
+        $(function () {$('[data-toggle="tooltip"]').tooltip()})
+        var elm=document.getElementById("cipher");
+        const options={ allowTaint: true, useCORS: true }
+        function validateText(text){
+            var chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            for(var i=0;i<text.length;i++){
+                if(!chars.includes(text[i])) return false;
+            } return true;
+        }
+        function setText(){
+            var text=document.getElementById("text").value;
+            if(validateText(text)) elm.innerText=text;
+            else alert("Please enter the text without any spaces,numbers or special characters")
+        }
+        function Download(){
+            html2canvas(elm,options).then(function (canvas) {
+                var anchorTag = document.createElement("a");
+                document.body.appendChild(anchorTag);
+                anchorTag.download = "Dancing.jpg";
+                anchorTag.href = canvas.toDataURL();
+                anchorTag.target = '_blank';
+                anchorTag.click();
+            });
+        }
+    </script>
+</body>
+</html>
